@@ -7,7 +7,7 @@ import mate.academy.rickandmorty.dto.internal.CharacterDto;
 public interface CharacterService {
     CharacterDto save(CharacterDataDto characterDataDto);
 
-    CharacterDto findCharacterById(Long id);
+    CharacterDto findById(Long id);
 
-    List<CharacterDto> findCharacterByNameContainingIgnoreCase(String searchString);
+    List<CharacterDto> searchByName(String searchString);
 }

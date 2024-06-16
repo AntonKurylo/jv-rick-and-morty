@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.rickandmorty.dto.external.CharacterDataDto;
 import mate.academy.rickandmorty.dto.external.CharactersResponseDataDto;
+import mate.academy.rickandmorty.exception.CharacterExternalLoadException;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class CharacterClient {
                 );
                 charactersDataDto.addAll(dataDto.characters());
             } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new CharacterExternalLoadException("Can't load character from API", e);
             }
         }
         return charactersDataDto;

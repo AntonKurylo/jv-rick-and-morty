@@ -15,7 +15,7 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "external_id")
+    @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
     private String name;
     private String status;

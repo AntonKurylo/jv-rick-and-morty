@@ -25,14 +25,14 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public CharacterDto findCharacterById(Long id) {
+    public CharacterDto findById(Long id) {
         Character characterRM = characterRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find a character by id: " + id));
         return characterMapper.toDto(characterRM);
     }
 
     @Override
-    public List<CharacterDto> findCharacterByNameContainingIgnoreCase(String searchString) {
+    public List<CharacterDto> searchByName(String searchString) {
         System.out.println(888);
         return characterRepository.findCharacterByNameContainingIgnoreCase(searchString).stream()
                 .map(characterMapper::toDto)

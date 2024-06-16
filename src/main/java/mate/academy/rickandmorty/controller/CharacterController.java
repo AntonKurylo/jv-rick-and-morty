@@ -23,16 +23,16 @@ public class CharacterController {
     @GetMapping("/random-character")
     @Operation(summary = "Get random character",
             description = "Returns a character obtained by a random id")
-    public CharacterDto findRandomCharacterById() {
+    public CharacterDto findCharacterById() {
         Random random = new Random();
-        return characterService.findCharacterById(random.nextLong(CHARACTER_COUNT) + 1);
+        return characterService.findById(random.nextLong(CHARACTER_COUNT) + 1);
     }
 
     @GetMapping("/character-by-name-part")
     @Operation(summary = "Search for characters by part of the name",
             description = "Returns a list of all characters whose name contains the search string")
-    public List<CharacterDto> findCharacterByNameContainingIgnoreCase(
+    public List<CharacterDto> searchCharacterByName(
             @RequestParam(defaultValue = "rick") String searchString) {
-        return characterService.findCharacterByNameContainingIgnoreCase(searchString.trim());
+        return characterService.searchByName(searchString.trim());
     }
 }
