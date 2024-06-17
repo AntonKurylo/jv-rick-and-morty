@@ -17,21 +17,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class CharacterClient {
-    private static final String BASE_URL = "https://rickandmortyapi.com/api/character?page=%d";
-    private static final int PAGE_COUNT = 42;
+    private static final String URL = "https://rickandmortyapi.com/api/character";
     private final HttpClient httpClient = HttpClient.newHttpClient();
-
     private final ObjectMapper objectMapper;
 
     public List<CharacterDataDto> getCharactersDataFromApi() {
         List<CharacterDataDto> charactersDataDto = new ArrayList<>();
-        for (int i = 1; i <= PAGE_COUNT; i++) {
-            String url = BASE_URL.formatted(i);
-
+        String currentUrl = URL;
+        while (currentUrl != null) {
             try {
                 HttpRequest request = HttpRequest.newBuilder()
                         .GET()
-                        .uri(URI.create(url))
+                        .uri(URI.create(currentUrl))
                         .build();
 
                 HttpResponse<String> response = httpClient.send(
@@ -44,6 +41,7 @@ public class CharacterClient {
                         CharactersResponseDataDto.class
                 );
                 charactersDataDto.addAll(dataDto.characters());
+                currentUrl = dataDto.info().next();
             } catch (IOException | InterruptedException e) {
                 throw new CharacterExternalLoadException("Can't load character from API", e);
             }
