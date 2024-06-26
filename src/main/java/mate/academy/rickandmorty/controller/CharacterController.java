@@ -25,7 +25,7 @@ public class CharacterController {
         return characterService.findById();
     }
 
-    @GetMapping("/name")
+    @GetMapping("/search")
     @Operation(summary = "Search for characters by part of the name",
             description = "Returns a list of all characters whose name contains the search string")
     public List<CharacterDto> searchCharacterByName(
